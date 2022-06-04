@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!, except: %i[top about]
+  before_action :authenticate_user!, except: %i[top about] # rubocop:disable  Rails/LexicallyScopedActionFilter
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   private
