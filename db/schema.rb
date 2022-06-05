@@ -41,13 +41,13 @@ ActiveRecord::Schema.define(version: 2022_06_04_234739) do
   end
 
   create_table "book_comments", force: :cascade do |t|
-    t.text "comment"
-    t.integer "user_id_id", null: false
-    t.integer "book_id_id", null: false
+    t.text "comment", null: false
+    t.integer "user_id", null: false
+    t.integer "book_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_id_id"], name: "index_book_comments_on_book_id_id"
-    t.index ["user_id_id"], name: "index_book_comments_on_user_id_id"
+    t.index ["book_id"], name: "index_book_comments_on_book_id"
+    t.index ["user_id"], name: "index_book_comments_on_user_id"
   end
 
   create_table "books", force: :cascade do |t|
@@ -84,8 +84,8 @@ ActiveRecord::Schema.define(version: 2022_06_04_234739) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "book_comments", "book_ids"
-  add_foreign_key "book_comments", "user_ids"
+  add_foreign_key "book_comments", "books"
+  add_foreign_key "book_comments", "users"
   add_foreign_key "favorites", "books"
   add_foreign_key "favorites", "users"
 end
