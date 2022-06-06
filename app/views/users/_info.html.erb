@@ -17,7 +17,13 @@
 	  <th><%= user.followed.count %></th>
   </tr>
 </table>
-　
+<% if user.id != current_user.id %>
+  <% if user.followed.where(follower_id: current_user.id).blank? %>
+    <%= link_to 'フォローする', user_relationships_path(user.id), method: :post, class: "btn btn-sm btn-success"%>
+  <% else %>
+    <%= link_to 'フォロー外す', user_relationships_path(user.id), method: :delete, class: "btn btn-sm btn-danger"%>
+  <% end %>
+<% end %>
 <div class='row'>
   <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block edit_user_#{user.id}" do %>
     <i class="fas fa-user-cog"></i>
