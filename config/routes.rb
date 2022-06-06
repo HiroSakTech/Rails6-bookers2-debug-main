@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     resource :favorites, only: %i[create destroy]
     resources :book_comments, only: %i[create destroy]
   end
-  resources :users, only: %i[index show edit update]
+  resources :users, only: %i[index show edit update] do
+    resource :relationships, only: %i[create destroy]
+  end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
