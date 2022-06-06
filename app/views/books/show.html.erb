@@ -42,18 +42,26 @@
       </table>
       <div>
         <% @book.book_comments.each do |book_comment| %>
-          <p><%= image_tag book_comment.user.get_profile_image %></p>
-          <%= book_comment.user.name %>
-          <%= book_comment.comment %>
-          <% if book_comment.user_id == current_user.id %>
-            <%= link_to 'Destroy', book_book_comment_path(book_comment.book_id, book_comment.id), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{book_comment.id}"%>
-          <% end %>
+          <div class='book_comment-list'>
+            <div class='book_comment-list__comment-image'>
+              <p><%= image_tag book_comment.user.get_profile_image %></p>
+            </div>
+            <div class='book_comment-list__comment-content'>
+              <%= book_comment.user.name %>
+              <%= book_comment.comment %>
+              <% if book_comment.user_id == current_user.id %>
+                <%= link_to 'Destroy', book_book_comment_path(book_comment.book_id, book_comment.id), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{book_comment.id}"%>
+              <% end %>
+            </div>
+          </div>
         <% end %>
       </div>
       <div>
         <%= form_with model: [@book, @book_comment] do |f| %>
-          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+          <%= f.text_area :comment, rows: '5', class: 'form_text_area', placeholder: "コメントをここに" %>
+        <div>
           <%= f.submit "送信する" %>
+        </div>
         <% end %>
       </div>
     </div>
