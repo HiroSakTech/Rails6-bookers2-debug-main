@@ -17,6 +17,11 @@ class User < ApplicationRecord
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 50 }
 
+  scope :exact_match, ->(word) { where('name LIKE ?', word.to_s) }
+  scope :forward_match, ->(word) { where('name LIKE ?', "#{word}%") }
+  scope :backward_match, ->(word) { where('name LIKE ?', "%#{word}") }
+  scope :partial_match, ->(word) { where('name LIKE ?', "%#{word}%") }
+
   def get_profile_image(width = 100, height = 100)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
