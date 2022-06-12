@@ -20,7 +20,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :groups
+  resources :groups do
+    resources :group_users, only: %i[create destroy]
+  end
 
   get 'search' => 'searches#search'
 
