@@ -15,7 +15,10 @@ class GroupsController < ApplicationController
     end
   end
 
-  def index; end
+  def index
+    @groups = Group.all
+    @book = Book.new
+  end
 
   private
 
