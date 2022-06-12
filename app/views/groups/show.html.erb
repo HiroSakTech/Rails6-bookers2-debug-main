@@ -9,12 +9,26 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Group Detail</h2>
       <table class='table'>
+        <thead>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+            <th>introduction</th>
+            <th>メンバー</th>
+          </tr>
+        </thead>
   		  <tr>
           <td>
             <%= image_tag @group.get_group_image(50, 50) %><br>
           </td>
           <td><%= @group.name %></td>
           <td><%= @group.introduction %></td>
+          <td>
+            <% @group.users.each do |user|%>
+              <%= user.name %>
+              <br>
+            <% end %>
+          </td>
           <% if @group.owner_id == current_user.id %>
             <td><%= link_to 'Edit', edit_group_path(@group), class: "btn btn-sm btn-success edit_group_#{@group.id}" %></td>
           <% end %>
