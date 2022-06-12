@@ -20,7 +20,7 @@
           <% end %>
           <% if @group.owner_id != current_user.id %>
             <% if @group.users.include?(current_user)  %>
-              <td><%= link_to 'Leave This Group', group_group_user_path(@group.id, current_user.id), method: :delete, class: "btn btn-sm btn-danger" %></td>
+              <td><%= link_to 'Leave This Group', group_group_users_path(@group.id), method: :delete, class: "btn btn-sm btn-danger" %></td>
             <% else %>
               <td><%= link_to 'Join This Group', group_group_users_path(@group.id), method: :post, class: "btn btn-sm btn-success" %></td>
             <% end %>
