@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   resources :groups do
     resource :group_users, only: %i[create destroy]
+    resource :notices, only: %i[new create]
   end
 
   get 'search' => 'searches#search'
