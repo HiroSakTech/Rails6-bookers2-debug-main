@@ -10,7 +10,10 @@ class NoticesController < ApplicationController
     @group = Group.find(params[:group_id])
     @notice = @group.notices.new(notice_params)
     if @notice.save
-      redirect_to group_path(@group.id)
+      @group.users.each do |user|
+        NoticeMailer.send_notice_mail(user, @notice).deliver
+      end
+      render 'notice_mailer/notice_mail'
     else
       render 'new'
     end
