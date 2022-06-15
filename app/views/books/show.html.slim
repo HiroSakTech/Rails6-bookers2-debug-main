@@ -1,0 +1,42 @@
+.container
+  .row
+    .col-md-3
+      h2
+        | User info
+      = render 'users/info', user: @book.user
+      h2.mt-3
+        | New book
+      = render 'form', book: Book.new
+    .col-md-8.offset-md-1
+      h2
+        | Book detail
+      table.table
+        tr
+          td
+            = link_to(@book.user) do
+              = image_tag @book.user.get_profile_image(50, 50)
+              br
+              = @book.user.name
+          td
+            = link_to @book.title, @book
+          td
+            = @book.body
+          |  <td id="favorite_button_
+          = @book.id
+          | "> 
+          = render "favorites/favorite", book: @book
+          td
+            = link_to "コメント数: #{@book.book_comments.count}", book_path(@book.id)
+          - if @book.user == current_user
+            td
+              = link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}"
+            td
+              = link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"
+      |  <div id="book_comments_
+      = @book.id
+      | "> 
+      = render "book_comments/book_comments", book: @book
+    |  <div id="book_comment_
+    = @book.id
+    | "> 
+    = render "book_comments/form", book: @book, book_comment: @book_comment
